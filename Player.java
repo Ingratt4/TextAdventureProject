@@ -9,9 +9,10 @@ public class Player {
     int currentExperience;
     int maxExperience;
     int level;
+    int coins;
     List<Item> inv;
 
-    Player(int hp, int maxhp, int damage, int armor, int currentExperience, int maxExperience, int level, List<Item> inv) {
+    Player(int hp, int maxhp, int damage, int armor, int currentExperience, int maxExperience, int level, List<Item> inv, int coins) {
         this.hp = hp;
         this.maxhp = maxhp;
         this.damage = damage;
@@ -19,6 +20,7 @@ public class Player {
         this.currentExperience = currentExperience;
         this.maxExperience = maxExperience;
         this.level = level;
+        this.coins = coins;
         inv = new ArrayList<Item>();
         
     }
@@ -70,6 +72,13 @@ public class Player {
             currentExperience = currentExperience - maxExperience;
             maxExperience +=5;
         }
+    }
+    
+    public int getCoins() {
+        return coins;
+    }
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
     boolean isAlive(){
         return hp >0;

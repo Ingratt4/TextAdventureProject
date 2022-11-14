@@ -1,19 +1,23 @@
 public class Item {
+    String name;
     int damageVal;
     int buyPrice;
     int sellPrice;
     int healVal;
     int armorVal;
+    int rarity;
 
 
     
     
-    public Item(int damageVal, int buyPrice, int sellPrice, int healVal, int armorVal) {
+    public Item(String name, int damageVal, int buyPrice, int sellPrice, int healVal, int armorVal, int rarity) {
+        this.name = name;
         this.damageVal = damageVal;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
         this.healVal = healVal;
         this.armorVal = armorVal;
+        this.rarity = rarity;
     }
     
     public int getDamageVal() {

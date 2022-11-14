@@ -54,6 +54,30 @@ public class Mob  {
     public String getName() {
         return name;
     }
+    public void loot(Player p, int lootNum) throws InterruptedException{
+        if(lootNum == -2 || lootNum == -1){
+            System.out.println("The monster had no loot");
+        }
+        
+        if(lootNum == 0){
+            System.out.println("You find two coins");
+            p.setCoins(+2);
+        }
+        if(lootNum == 1){
+            System.out.println("You find six coins");
+            p.setCoins(+6);
+            
+        }
+        if(lootNum == 2){
+            System.out.println("You search the lifeless corpse and find...");
+            Thread.sleep(2000);
+            System.out.println("...");
+            Thread.sleep(2000);
+            System.out.println("");
+         }
+
+
+    }
 
     
     

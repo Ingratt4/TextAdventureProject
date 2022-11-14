@@ -1,37 +1,60 @@
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 public class Game{
     public static final String ANSI_RESET = "\u001B[0m";
-    Player player = new Player(10, 10, 2, 1, 0, 20, 1, null);
+
+    //Misc objects
+
+
+
+    Player player = new Player(10, 10, 2, 1, 0, 20, 1, null,0);
     Mob zombie = new Mob("Zombie",1,10, 0, 5, 1);
     Scanner sc = new Scanner(System.in);
     int choice;
     String menu = "1.Attack\t2.Block\n3.Heal\t\t4.Surrender";
+   
+    //All items
+    //public Item(String name, int damageVal, int buyPrice, int sellPrice, int healVal, int armorVal) {
+
+    Item brokenSword = new Item("Broken sword", 1, 5, 3, 0, 0,1);
+    Item steelSword = new Item("Steel Sword", 3, 10, 5, 0, 0,2);
+    Item ancientClaymore = new Item("Ancient Claymore", 6, 40, 20,  0, 0,3);
+    Item rustyPlatebody = new Item("Rusty Platebody", 0,5,3,0,1,1);
+    Item lightChainmail = new Item("Light Chainmail",0,10,5,0,2,2);
+    Item ancientChestplate = new Item("Ancient Chestplate",0,40,20,0,3,3);
+    List<Item> commonItems = new ArrayList<Item>(
+        Arrays.asList(brokenSword,rustyPlatebody)
+    );
+    List<Item> uncommonItems = new ArrayList<Item>(
+        Arrays.asList(steelSword,lightChainmail)
+    );
+    List<Item> rareItems = new ArrayList<Item>(
+        Arrays.asList(ancientChestplate,ancientClaymore)
+    );
+    
+        
+    
+
+    
+
+
+    /*
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
 
     public void intro() throws InterruptedException{
-        while(player.isAlive() && zombie.isAlive()){
-            System.out.println(menu);
-            choice=sc.nextInt();
-            switch (choice) {
-                case 1:
-                    attack(player, zombie);
-                    break;
-                case 2:
-                    block(player,zombie);
-                //case3:
-                    //heal(player);
-                //case4:
-                    //surrender();
-                 }
-    }
-    isDefeated(zombie);
-
-    
-
-
-    
-   /*   System.out.println("Welcome to my adventure game!");
+        /*   System.out.println("Welcome to my adventure game!");
     Thread.sleep(1500);
     System.out.println("This will be a quick tutorial to explain how the game works");
     Thread.sleep(2000);
@@ -60,20 +83,25 @@ public class Game{
     System.out.println("Your final option is to surrender, if you chose to surrender you will exit the scenario and your current experience will be set to 0.");
     Thread.sleep(4000);
     System.out.println("Lets defeat this zombie.");*/
+        while(player.isAlive() && zombie.isAlive()){
+            System.out.println(menu);
+            choice=sc.nextInt();
+            switch (choice) {
+                case 1:
+                    attack(player, zombie);
+                    break;
+                case 2:
+                    block(player,zombie);
+                //case3:
+                    //heal(player);
+                //case4:
+                    //surrender();
+                 }
     }
+    isDefeated(zombie);
 
-   
-    
-
-
-
-
-
-
-
-
-    
-    private void attack(Player player, Mob mob) throws InterruptedException{
+}
+    private void attack(Player player, Mob mob) throws InterruptedException{  //attack function
         if(player.isAlive()){
         int roll = roll();
         int pdamage = player.getDamage() +roll;
@@ -115,27 +143,24 @@ public class Game{
     Thread.sleep(1500);
     System.out.println("=====================================");
 
+ }
 
-       
 
-    }
-    private void block(Player player, Mob mob) throws InterruptedException{
-        
-            
+
+    private void block(Player player, Mob mob) throws InterruptedException{ //block function
             int pblock = player.getArmor();
             System.out.println("Player is blocking "+pblock+" damage");
            
-            
-        
             if(mob.isAlive()){
             int mroll = roll();
             int mdamage = mob.getAttack() + mroll -pblock;
+
             if(mdamage <= 0){
                 System.out.println(mob.getName() +" rolls a "+mroll+" and dealt no damage");
                 Thread.sleep(1500);
                 System.out.println("Player HP:"+player.getHp()+"/"+player.getMaxhp());
-    
             }
+
             else{
                 System.out.println(mob.getName() +" rolls a "+mroll+" and dealt "+mdamage+" damage");
                 Thread.sleep(1500);
@@ -143,12 +168,12 @@ public class Game{
                 System.out.println("Player HP:"+player.getHp()+"/"+player.getMaxhp());
             }
         }
-        Thread.sleep(1500);
-        System.out.println("=====================================");
+     Thread.sleep(1500);
+     System.out.println("=====================================");
 
     }
     
-    private int roll(){
+    private int roll(){ //roll function for combat
         Random random = new Random();
         int randomNumber = random.nextInt(2 - -2) + -2;
         return randomNumber;
@@ -156,28 +181,48 @@ public class Game{
     }
 
 
-    private int lootRoll(){
+
+
+    private int lootRoll(){  //rolls function to determine loot
         Random randomLoot = new Random();
         int lootNum = randomLoot.nextInt(2- -2) + -2;
-        if(lootNum == -2 || lootNum == -1){
-            System.out.println("The monster had no loot");
-        }
-        if(lootNum == 0){
-            System.out.println("You find some low tier loot");
-        }
-        if(lootNum == 1){
-            System.out.println("You find medium tier loot");
-        }
-        if(lootNum == 2){
-            System.out.println("You find high tier loot");
-        }
         return lootNum;
         
     }
-    private void isDefeated(Mob mob){
+
+
+
+
+
+    private void isDefeated(Mob mob){ //rewards experience after mob death
     System.out.println(mob.getName()+ " has been defeated, you are rewarded "+mob.getExperience()+" experience!");
     player.setCurrentExperience(+5);
     System.out.println("Your current experience is..."+player.getCurrentExperience());
+    }
+
+
+
+
+    private Item lootItem(){
+        Random randomitem = new Random();
+        int randomNumber = randomitem.nextInt(100 - 1) + -1;
+        Item item;
+        if(randomNumber <=40){
+            Collections.shuffle(commonItems);
+          item = commonItems.get(0);
+
+        }
+        if(randomNumber > 40 && randomNumber < 90 ){
+            Collections.shuffle(uncommonItems);
+            item = uncommonItems.get(0);
+        }
+        if(randomNumber >= 90){
+            Collections.shuffle(rareItems);
+            item = rareItems.get(0);
+
+
+        }
+        return item;
 
     }
 
