@@ -50,5 +50,9 @@ public class Item {
     public void setArmorVal(int armorVal) {
         this.armorVal = armorVal;
     }
+
+    public String getName() {
+        return name;
+    }
     
 }

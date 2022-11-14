@@ -16,6 +16,7 @@ public class Game{
     Mob zombie = new Mob("Zombie",1,10, 0, 5, 1);
     Scanner sc = new Scanner(System.in);
     int choice;
+    int roll = 0;
     String menu = "1.Attack\t2.Block\n3.Heal\t\t4.Surrender";
    
     //All items
@@ -36,14 +37,7 @@ public class Game{
     List<Item> rareItems = new ArrayList<Item>(
         Arrays.asList(ancientChestplate,ancientClaymore)
     );
-    
-        
-    
-
-    
-
-
-    /*
+     /*
      * 
      * 
      * 
@@ -54,7 +48,7 @@ public class Game{
      */
 
     public void intro() throws InterruptedException{
-        /*   System.out.println("Welcome to my adventure game!");
+  /*System.out.println("Welcome to my adventure game!");
     Thread.sleep(1500);
     System.out.println("This will be a quick tutorial to explain how the game works");
     Thread.sleep(2000);
@@ -99,9 +93,10 @@ public class Game{
                  }
     }
     isDefeated(zombie);
+    zombie.loot(player, zombie.lootRoll());
 
 }
-    private void attack(Player player, Mob mob) throws InterruptedException{  //attack function
+private void attack(Player player, Mob mob) throws InterruptedException{  //attack function
         if(player.isAlive()){
         int roll = roll();
         int pdamage = player.getDamage() +roll;
@@ -145,9 +140,7 @@ public class Game{
 
  }
 
-
-
-    private void block(Player player, Mob mob) throws InterruptedException{ //block function
+private void block(Player player, Mob mob) throws InterruptedException{ //block function
             int pblock = player.getArmor();
             System.out.println("Player is blocking "+pblock+" damage");
            
@@ -173,7 +166,7 @@ public class Game{
 
     }
     
-    private int roll(){ //roll function for combat
+private int roll(){ //roll function for combat
         Random random = new Random();
         int randomNumber = random.nextInt(2 - -2) + -2;
         return randomNumber;
@@ -182,49 +175,15 @@ public class Game{
 
 
 
+private void isDefeated(Mob mob) throws InterruptedException{ //rewards experience after mob death
 
-    private int lootRoll(){  //rolls function to determine loot
-        Random randomLoot = new Random();
-        int lootNum = randomLoot.nextInt(2- -2) + -2;
-        return lootNum;
-        
+         System.out.println(mob.getName()+ " has been defeated, you are rewarded "+mob.getExperience()+" experience!");
+         player.setCurrentExperience(+5);
+         Thread.sleep(2000);
+         System.out.println("Your current experience is..."+player.getCurrentExperience());
     }
 
 
-
-
-
-    private void isDefeated(Mob mob){ //rewards experience after mob death
-    System.out.println(mob.getName()+ " has been defeated, you are rewarded "+mob.getExperience()+" experience!");
-    player.setCurrentExperience(+5);
-    System.out.println("Your current experience is..."+player.getCurrentExperience());
-    }
-
-
-
-
-    private Item lootItem(){
-        Random randomitem = new Random();
-        int randomNumber = randomitem.nextInt(100 - 1) + -1;
-        Item item;
-        if(randomNumber <=40){
-            Collections.shuffle(commonItems);
-          item = commonItems.get(0);
-
-        }
-        if(randomNumber > 40 && randomNumber < 90 ){
-            Collections.shuffle(uncommonItems);
-            item = uncommonItems.get(0);
-        }
-        if(randomNumber >= 90){
-            Collections.shuffle(rareItems);
-            item = rareItems.get(0);
-
-
-        }
-        return item;
-
-    }
 
 
 
