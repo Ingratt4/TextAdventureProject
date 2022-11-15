@@ -89,6 +89,7 @@ public void mainMenu(Player p){
             case 1:
                 
             case 2:
+            p.inventory();
                 
             //case3:
                 
