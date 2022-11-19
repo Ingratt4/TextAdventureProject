@@ -1,11 +1,28 @@
 import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Container;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JPanel;
 public class Game{
+    JFrame window;
+    JPanel titleNamePanel;
+    JPanel startButtonPanel;
+    JButton startButton;
+    Container con;
+    JLabel titleNameLabel;
+
+    
+    Font titleFont = new Font("Times New Roman", Font.PLAIN, 100);
     public static final String ANSI_RESET = "\u001B[0m";
 
     //Misc objects
@@ -36,6 +53,49 @@ public class Game{
     List<Item> rareItems = new ArrayList<Item>(
         Arrays.asList(ancientChestplate,ancientClaymore)
     );
+
+    GameMap forest = new GameMap(0, 0, 0, 0, 10, 10, 10, 10);
+    GameMap cellar = new GameMap(0, 0, 0, 0, 0, 0, 15, 15);
+    List<GameMap> maps = new ArrayList<GameMap>(
+        Arrays.asList(forest, cellar)
+    );
+
+    public Game(){
+        window = new JFrame();
+        window.setSize(800,600);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.getContentPane().setBackground(Color.black);
+        window.setLayout(null);
+        con = window.getContentPane();
+
+
+        titleNamePanel = new JPanel();
+        titleNamePanel.setBounds(100,100,600,150);
+        titleNamePanel.setBackground(Color.blue);
+        titleNameLabel = new JLabel("Broken Game");
+        titleNameLabel.setForeground(Color.white);
+        titleNameLabel.setFont(titleFont);
+
+        startButtonPanel = new JPanel();
+        startButtonPanel.setBounds(300,400,200,100);
+        startButtonPanel.setBackground(Color.blue);
+
+        startButton = new JButton("Start");
+        startButton.setBackground(Color.black);
+        startButton.setForeground(Color.white);
+
+    
+        titleNamePanel.add(titleNameLabel);
+        startButtonPanel.add(startButton);
+
+        con.add(titleNamePanel);
+        con.add(startButtonPanel);
+        window.setVisible(true);
+
+        
+
+
+    }
      /*
      * 
      * 
@@ -81,8 +141,9 @@ public void intro() throws InterruptedException{
 }
 
 public void mainMenu(Player p){ 
-    String menu = "1.View map\t2.View Inventory\t3."
-    while(){
+    String menu = "1.View map\t2.View Inventory\t3.";
+    
+    while(true){
         choice=sc.nextInt();
         switch (choice) {
             
@@ -174,8 +235,6 @@ private int roll(){ //roll function for combat
 
     }
 
-
-
 private void isDefeated(Mob mob) throws InterruptedException{ //rewards experience after mob death
 
          System.out.println(mob.getName()+ " has been defeated, you are rewarded "+mob.getExperience()+" experience!");
@@ -217,3 +276,4 @@ mob.loot(player, mob.lootRoll());
 
 
 }
+

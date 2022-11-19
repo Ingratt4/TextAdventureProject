@@ -4,11 +4,11 @@ public class GameMap {
 
 
     public GameMap(int n, int s, int e, int w, int maxN, int maxS, int maxE, int maxW) {
-        this.n = n;
+        this.n = n; //player location
         this.s = s;
         this.e = e;
         this.w = w;
-        this.maxN = maxN;
+        this.maxN = maxN; //map max location (map size)
         this.maxS = maxS;
         this.maxE = maxE;
         this.maxW = maxW;
