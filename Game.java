@@ -23,6 +23,7 @@ public class Game{
 
     
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 100);
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     public static final String ANSI_RESET = "\u001B[0m";
 
     //Misc objects
@@ -71,18 +72,20 @@ public class Game{
 
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(100,100,600,150);
-        titleNamePanel.setBackground(Color.blue);
+        titleNamePanel.setBackground(Color.black);
         titleNameLabel = new JLabel("Broken Game");
         titleNameLabel.setForeground(Color.white);
         titleNameLabel.setFont(titleFont);
 
         startButtonPanel = new JPanel();
         startButtonPanel.setBounds(300,400,200,100);
-        startButtonPanel.setBackground(Color.blue);
+        startButtonPanel.setBackground(Color.black);
 
         startButton = new JButton("Start");
         startButton.setBackground(Color.black);
         startButton.setForeground(Color.white);
+        startButton.setFont(normalFont);
+        startButton.setFocusPainted(false);
 
     
         titleNamePanel.add(titleNameLabel);
