@@ -127,6 +127,15 @@ public class Player {
         setArmor(+item.getArmorVal());
 
     }
+    @Override
+    public String toString() {
+        return "Player [hp=" + hp + ", maxhp=" + maxhp + "]";
+    }
+    
+
+
+
+
 
 }
 
